@@ -5,12 +5,15 @@ app = Flask(__name__)
 
 @app.route("/")
 def hello():
-    return "<h1>Привет!</h1>"
+    return '''
+            <h1>Привет!</h1>
+            <a href="upload">Загрузить файл</a>
+        '''
 
-@app.route('/upload', methods=['GET', 'POST'])
+@app.route("/upload", methods=["GET", "POST"])
 def upload_file():
-    if request.method == 'POST':
-        file = request.files['file']
+    if request.method == "POST":
+        file = request.files["file"]
         if file:
             #filename = secure_filename(file.filename)
             file.save(os.path.join("storage", file.filename))
@@ -20,7 +23,7 @@ def upload_file():
             <title>Загрузка файла</title>
             <h1>Загрузка файла</h1>
             <form action="" method=post enctype=multipart/form-data>
-                <p><input type=file name=file>
+                <input type=file name=file>
                 <input type=submit value=Upload>
             </form>
         </html>
